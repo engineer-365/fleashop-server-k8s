@@ -9,26 +9,9 @@ pipeline {
         timestamps()
     }
     stages {
-        stage('Deploy') {
-            withCredentials([string(credentialsId: 'cloud_user_pw', variable: 'USERPASS')]) {
-                sshPublisher(
-                    failOnError: true,
-                    publishers: [
-                        sshPublisherDesc(
-                            configName: 'staging',
-                            sshCredentials: [
-                                username: 'cloud_user',
-                                encryptedPassphrase: "$USERPASS"
-                            ], 
-                            transfers: [
-                                sshTransfer(
-                                    sourceFiles: 'src/**',
-                                    removePrefix: 'src/'
-                                )
-                            ]
-                        )
-                    ]
-                )
+        stage('Deploy to test env') {
+            configFileProvider([configFile(fileId: 'engineer365-kubeconfig', targetLocation: 'kubeconfig.yaml')]) {
+                sh 'kubectl --kubeconfig="./kubeconfig.yaml" apply -k overlays/test'
             }
         }
     }
