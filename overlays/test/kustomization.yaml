@@ -9,4 +9,4 @@ resources:
 images:
   - name: docker.engineer365.org:40444/engineer-365/fleashop-server
     newName: docker.engineer365.org:40444/engineer-365/fleashop-server
-    newTag: 0.0.1-SNAPSHOT-8d82f3e-95
+    newTag: 0.0.1-SNAPSHOT-8d82f3e-1
