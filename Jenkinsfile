@@ -10,8 +10,10 @@ pipeline {
     }
     stages {
         stage('Deploy to test env') {
-            configFileProvider([configFile(fileId: 'engineer365-kubeconfig', targetLocation: 'kubeconfig.yaml')]) {
-                sh 'kubectl --kubeconfig="./kubeconfig.yaml" apply -k overlays/test'
+            steps {
+                configFileProvider([configFile(fileId: 'engineer365-kubeconfig', targetLocation: 'kubeconfig.yaml')]) {
+                    sh 'kubectl --kubeconfig="./kubeconfig.yaml" apply -k overlays/test'
+                }
             }
         }
     }
