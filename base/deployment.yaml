@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fleashop-server-deployment
+  labels:
+    app: fleashop-server
+spec:
+  selector:
+    matchLabels:
+      app: fleashop-server
+  replicas: 3
+  revisionHistoryLimit: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: fleashop-server
+    spec:
+      containers:
+      - name: fleashop-server
+        image: docker.engineer365.org:40444/engineer-365/fleashop-server:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        - containerPort: 8081
+        resources:
+          requests:
+            memory: 2Gi
+          limits:
+            memory: 2Gi
+        env:
+        - name: MEM_TOTAL_MB
+          valueFrom:
+            resourceFieldRef:
+              resource: limits.memory
+        #livenessProbe:
+        #  httpGet:
+        #    path: /manage/health/liveness
+        #    port: 9000
+        #  initialDelaySeconds: 30
+        #  periodSeconds: 10
+        #readinessProbe:
+        #  httpGet:
+        #    path: /manage/health/readiness
+        #    port: 9000
+        #  initialDelaySeconds: 30
+        #  periodSeconds: 10
+      imagePullSecrets:
+        - name: engineer365-deployer

@@ -1,0 +1,1 @@
+kubectl create secret docker-registry engineer365-deployer --docker-username=engineer365-deployer --docker-password=<password>  --docker-server=docker.engineer365.org:40444 --docker-email=engineer365-builder@mail.engineer365.org

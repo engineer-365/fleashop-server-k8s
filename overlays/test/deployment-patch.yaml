@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fleashop-server-deployment
+spec:
+  template:
+    spec:
+      containers:
+      - name: fleashop-server
+        env:
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: fleashop-server-secret
+              key: mysql.user
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: fleashop-server-secret
+              key: mysql.password
+        envFrom:
+        - configMapRef:
+            name: fleashop-server-configmap
