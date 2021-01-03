@@ -5,6 +5,6 @@ metadata:
 data:
   MYSQL_DATABASE: fleashop
   MYSQL_JDBC_OPTIONS: useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
-  MYSQL_HOST: mysql-master1.engineer365.org
+  MYSQL_HOST: 192.168.50.21
   MYSQL_PORT: "3306"
   SPRING_FLYWAY_ENABLED: "true"
